@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WaterFall</title>
+    <style>
+    .imgs{
+        position: relative;
+        margin: 20px 150px;
+    }
+    .item{
+        width: 200px;
+        position: absolute;
+        margin: 5px;
+        transition: all 1s;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="imgs">
+        <img src="http://i01.pic.sogou.com/cb4e9c56b6407929" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/24475ce890affd74" alt="" class="item">
+        <img src="http://i03.pic.sogou.com/754215842d2e7b8f" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/fefe1127a428d5d7" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/fd9caa216e10cbfd" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/6f0856038af8fed8" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/cf403ec86cabcf5a" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/f34c9343648a299e" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/3be4b0564a82b91b" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/3cd9b64594f071d0" alt="" class="item">
+
+        <img src="http://i01.pic.sogou.com/cb4e9c56b6407929" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/24475ce890affd74" alt="" class="item">
+        <img src="http://i03.pic.sogou.com/754215842d2e7b8f" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/fefe1127a428d5d7" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/fd9caa216e10cbfd" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/6f0856038af8fed8" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/cf403ec86cabcf5a" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/f34c9343648a299e" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/3be4b0564a82b91b" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/3cd9b64594f071d0" alt="" class="item">
+
+        <img src="http://i01.pic.sogou.com/cb4e9c56b6407929" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/24475ce890affd74" alt="" class="item">
+        <img src="http://i03.pic.sogou.com/754215842d2e7b8f" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/fefe1127a428d5d7" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/fd9caa216e10cbfd" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/6f0856038af8fed8" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/cf403ec86cabcf5a" alt="" class="item">
+        <img src="http://i04.pic.sogou.com/f34c9343648a299e" alt="" class="item">
+        <img src="http://i01.pic.sogou.com/3be4b0564a82b91b" alt="" class="item">
+        <img src="http://i02.pic.sogou.com/3cd9b64594f071d0" alt="" class="item">
+    </div>
+
+
+
+
+
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+        WaterFall()
+
+        function WaterFall(){
+            var colLength = parseInt($('.imgs').width()/$('.item').width())
+            var itemArr = []
+            for(var i = 0; i < colLength; i++){
+                itemArr[i] = 0
+            }
+            $('.item').each(function (){
+                var minVal = Math.min.apply(null,itemArr)
+                var minIndex = itemArr.indexOf(minVal)
+
+                $(this).css({
+                    top: itemArr[minIndex],
+                    left: minIndex * $(this).outerWidth(true)
+                })
+
+                itemArr[minIndex] += $(this).outerHeight(true)
+            })
+        }
+
+        $(window).resize(function (){
+            WaterFall()
+        })
+    </script>
+</body>
+</html>
