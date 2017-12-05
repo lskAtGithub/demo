@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Carousel</title>
+<style>
+body,ul,li,div{
+    padding: 0;
+    margin: 0;
+}
+ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+
+body{
+    background: #999;
+}
+.box{
+    border: 8px solid rgba(255, 255, 255, 0.794);
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 180px;
+    border-radius: 6px;
+}
+.carousel{
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+.carousel .img-ct{
+    position: absolute;
+    overflow: hidden;
+}
+.carousel .img-ct>li{
+    float: left;
+}
+.carousel .img-ct img{
+    width: 400px;
+    height: 300px;
+}
+.carousel .pre{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    display: inline-block;
+    top: 50%;
+    margin-top: -20px;
+    left: 10px;    
+}
+.carousel .next{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    display: inline-block;
+    top: 50%;
+    margin-top: -20px;
+    right: 10px;
+}
+.carousel .bullet{
+    position: absolute;
+    width: 100%;
+    font-size: 0;
+    bottom: 10px;
+    text-align: center;
+}
+.carousel .bullet>li{
+    display: inline-block;
+    width: 40px;
+    height: 7px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.carousel .bullet .active{
+    background-color: #f60;
+}
+</style>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<div class="box">
+    <div class="carousel">
+        <ul class="img-ct">
+            <li><a href="javascript:;"><img src="http://img04.sogoucdn.com/app/a/100520024/519ec93ed0f0bf853637cb4755e158cc" alt=""></a></li>
+            <li><a href="javascript:;"><img src="http://img04.sogoucdn.com/app/a/100520024/5e223e791c575337e25a9cb6715f2d5b" alt=""></a></li>
+            <li><a href="javascript:;"><img src="http://img01.sogoucdn.com/app/a/100520024/b60087abf6ddc225892221a7e80c10dd" alt=""></a></li>
+            <li><a href="javascript:;"><img src="http://img01.sogoucdn.com/app/a/100520024/5962f248d4b363af862f43bfbeea07e4" alt=""></a></li>
+        </ul>
+        <a class="pre" href="javascript:;"><</a>
+        <a class="next" href="javascript:;">></a>
+        
+        <ul class="bullet">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+var $imgCt = $('.img-ct')
+var $imgs = $('.carousel .img-ct>li')
+var $preBtn = $('.carousel .pre')
+var $nextBtn = $('.carousel .next')
+var $bullet = $('.bullet li')
+var $box = $('.box')
+
+var imgCount = $imgs.length
+var imgWidth = $imgs.width()
+
+
+var pageIndex = 0
+var isAnimate = false
+
+
+$imgCt.append($imgs.first().clone())
+$imgCt.prepend($imgs.last().clone())
+$imgCt.width((imgCount + 2) * imgWidth)
+$imgCt.css({left: -imgWidth})
+
+$preBtn.click(function(){
+    playPre(1)
+})
+$nextBtn.click(function(){
+    playNext(1)
+})
+$bullet.click(function(){
+    var index = $(this).index()
+    if(index > pageIndex){
+        playNext(index - pageIndex)
+    }else if(index < pageIndex){
+        playPre(pageIndex - index)
+    }
+})
+
+function playNext(len){
+    if(isAnimate) return
+    isAnimate = true
+    $imgCt.animate({
+        left: '-=' + (len * imgWidth)
+    },function(){
+        pageIndex += len
+        if(pageIndex === imgCount){
+            pageIndex = 0
+            $imgCt.css({left: -imgWidth})
+        }
+        setBullet()
+        isAnimate= false
+    })
+}
+function playPre(len){
+    if(isAnimate) return
+    isAnimate = true
+    $imgCt.animate({
+        left: '+=' + (len * imgWidth)
+    },function(){
+        pageIndex -= len
+        if(pageIndex < 0){
+            pageIndex = imgCount - 1
+            $imgCt.css({left: -imgCount*imgWidth})
+        }
+        setBullet()
+        isAnimate = false
+    })
+}
+
+function setBullet(){
+    $bullet.removeClass('active')
+            .eq(pageIndex)
+            .addClass('active')
+}
+
+function move(){
+    playNext(1)
+}
+var timing = setInterval(move,1500);
+$box.on('mouseover',function(){
+    clearInterval(timing)
+})
+$box.on('mouseout',function(){
+    timing = setInterval(move,1500);
+})
+
+</script>
+</body>
+</html>
