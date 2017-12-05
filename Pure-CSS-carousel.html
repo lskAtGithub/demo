@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>用CSS实现轮播</title>
+  <style>
+    /*reset style*/
+body,div,img,ul,li {
+  padding: 0;
+  margin: 0;
+}
+ul,li {
+  list-style: none;
+}
 
+/*style*/
+.message {
+  text-align: center;
+  margin-top: 100px;
+}
+.message {
+  font-size: 15px;
+  color: #f30;
+  font-weight: blod;
+}
+
+.content {
+  width: 600px;
+  margin: 0 auto;
+  height: 350px;
+  margin-top: 200px;
+  position: relative;
+  overflow: hidden;
+  border: 10px solid #ccc;
+  border-radius: 30px;
+}
+.list {
+  position: absolute;
+}
+.list img {
+  width: 600px;
+  height: 350px;
+  vertical-align: bottom;
+}
+
+@keyframes slides {
+  from, to {top: 0;}
+  12.5% {top: 0;}
+  25% {top: -350px;}
+  37.5% {top: -350px;}
+  50% {top: -700px;}
+  62.5% {top: -700px;}
+  75% {top: -1050px;}
+  87.5% {top: -1050px;}
+}
+.list {
+  animation: slides 12s infinite;
+}
+  </style>
+</head>
+<body>
+  <div class="message">
+    <h2>如果IE浏览中效果显示有问题，请将你的浏览器升级或者使用别的浏览器查看</h2>  
+  </div>
+  <div class="content">
+    <ul class="list">
+      <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507379325162&di=f34151616910918bd1fcb8b308ec2551&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F50da81cb39dbb6fd493c67e70024ab18962b378f.jpg" alt="pic"></li>
+      <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507379325162&di=1dbedee995034e2206101bb9a7aeb7fa&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F279759ee3d6d55fb5cb87de664224f4a21a4ddf0.jpg" alt="pic"></li>
+      <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507379325161&di=0fee7530e992e9cb9371bfaa42e7c224&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F18d8bc3eb13533fafa7788efa1d3fd1f40345b29.jpg" alt="pic"></li>
+      <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507379325419&di=98fa9f06fad415205d0a16ffe193e8a1&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa2cc7cd98d1001e9d8aeb0ceb10e7bec55e79765.jpg" alt="pic"></li>
+    </ul>
+  </div>
+</body>
+</html>
