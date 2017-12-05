@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Picture lozy loading</title>
+    <style>
+        .pics{
+            width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .pics img{
+            width: 400px;
+            height: 600px;
+            margin: 10px 0;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <div class="pics">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i01.pic.sogou.com/cb4e9c56b6407929">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i04.pic.sogou.com/24475ce890affd74">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i03.pic.sogou.com/754215842d2e7b8f">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i04.pic.sogou.com/fefe1127a428d5d7">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i02.pic.sogou.com/fd9caa216e10cbfd">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i02.pic.sogou.com/6f0856038af8fed8">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i01.pic.sogou.com/cf403ec86cabcf5a">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i04.pic.sogou.com/f34c9343648a299e">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i01.pic.sogou.com/3be4b0564a82b91b">
+        <img src="http://www.xwcms.net/webAnnexImages/articleContentImages/2014-04/43840.jpg" alt="" data-src="http://i02.pic.sogou.com/3cd9b64594f071d0">
+    </div>
+
+
+
+
+    <script>
+        lazyRender()
+        var clock
+
+        $(window).on('scroll',function (){
+            if(clock){
+                clearTimeout(clock)
+            }
+            clock = setTimeout(function (){
+                lazyRender()
+            },400)
+        })
+
+        function lazyRender(){
+            $('.pics img').each(function (){
+                if(checkShow($(this)) && !isLoaded($(this))){
+                    loadImg($(this))
+                }
+            })
+        }
+
+
+        function checkShow($img){
+            var scrollTop = $(window).scrollTop()
+            var windowHeight = $(window).height()
+            var offsetTop = $img.offset().top
+
+            if(offsetTop < scrollTop + windowHeight && offsetTop > scrollTop){
+                return true
+            }
+            return  false
+        }
+        function isLoaded($img){
+                return $img.attr('src') === $img.attr('data-src')
+        }
+        function loadImg($img){
+            $img.attr('src',$img.attr('data-src'))
+        }
+    </script>
+</body>
+</html>
